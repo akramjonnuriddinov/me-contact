@@ -20,7 +20,7 @@ defineProps({
   >
     <img
       class="rounded-full"
-      src="https://api.dicebear.com/6.x/open-peeps/svg?seed=Ginger"
+      :src="`https://avatars.dicebear.com/api/avataaars/${index}.svg`"
       width="120"
       height="120"
     />
@@ -44,9 +44,12 @@ defineProps({
       <button @click="store.deleteContact(index)" class="flex justify-center w-full py-2 border">
         <trash-icon class="w-5 h-5 text-red-400" />
       </button>
-      <div class="flex justify-center w-full py-2 border rounded-br">
+      <button
+        @click="store.editContact(index)"
+        class="flex justify-center w-full py-2 border rounded-br"
+      >
         <pencil-icon class="w-5 h-5 text-blue-400" />
-      </div>
+      </button>
     </div>
   </div>
 </template>

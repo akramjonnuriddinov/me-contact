@@ -1,37 +1,21 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { useCounterStore } from '@/stores/counter'
-import { useRouter } from 'vue-router'
 import { PhoneIcon, UserIcon, EnvelopeIcon } from '@heroicons/vue/24/outline'
 
 const store = useCounterStore()
-const router = useRouter()
-
+console.log(store.index)
 const user_contacts = reactive({
-  email: '',
-  username: '',
-  phone_number: ''
+  email: store.contacts[store.index || 0].email,
+  username: store.contacts[store.index || 0].username,
+  phone_number: store.contacts[store.index || 0].phone_number
 })
-
-const contacts = store.contacts
-
-const addContact = () => {
-  if (
-    user_contacts.email.length !== 0 &&
-    user_contacts.username.length !== 0 &&
-    user_contacts.phone_number.length !== 0
-  ) {
-    contacts.unshift(user_contacts)
-    localStorage.setItem('contacts', JSON.stringify(contacts))
-    router.push('/')
-  }
-}
 </script>
 
 <template>
   <div class="min-h-screen px-5 py-16 bg-gray-50">
     <div class="max-w-md p-10 mx-auto bg-white rounded">
-      <h1 class="mb-5 text-2xl font-medium text-center text-black">Add Contact</h1>
+      <h1 class="mb-5 text-2xl font-medium text-center text-black">Edit Contact</h1>
       <label
         for="input-group-1"
         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -88,10 +72,10 @@ const addContact = () => {
       </div>
       <div class="flex justify-between gap-2">
         <button
-          @click="addContact()"
+          @click="store.updateContact()"
           class="flex items-center justify-center px-10 py-2 font-semibold text-white bg-blue-700 rounded-md shadow-md"
         >
-          <span>Add contact</span>
+          <span>Update contact</span>
         </button>
         <router-link
           :to="{ name: 'home' }"

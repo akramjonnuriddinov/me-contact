@@ -13,6 +13,7 @@ const store = useCounterStore()
     <div class="flex flex-col items-center">
       <no-contact v-if="store.contacts.length == 0" />
       <router-link
+        :class="{ 'self-end': store.contacts.length !== 0 }"
         :to="{ name: 'addContact' }"
         class="flex items-center justify-center px-4 py-2 font-semibold text-white bg-blue-700 rounded-md"
       >
