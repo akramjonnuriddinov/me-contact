@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
 import { PhoneIcon, UserIcon, EnvelopeIcon } from '@heroicons/vue/24/outline'
@@ -7,14 +7,17 @@ import { PhoneIcon, UserIcon, EnvelopeIcon } from '@heroicons/vue/24/outline'
 const store = useCounterStore()
 const router = useRouter()
 
-const email = ref('')
-const username = ref('')
-const phone_number = ref('')
-const emails = store.emails
+const user_contacts = reactive({
+  email: '',
+  username: '',
+  phone_number: ''
+})
+
+const contacts = store.contacts
 
 const addContact = () => {
-  emails.push(email.value)
-  localStorage.setItem('emails', JSON.stringify(emails))
+  contacts.unshift(user_contacts)
+  localStorage.setItem('contacts', JSON.stringify(contacts))
   router.push('/')
 }
 </script>
@@ -33,7 +36,7 @@ const addContact = () => {
           <envelope-icon class="w-5 h-5 text-gray-700 dark:text-gray-400" />
         </div>
         <input
-          v-model="email"
+          v-model="user_contacts.email"
           autocomplete="off"
           type="text"
           id="input-group-1"
@@ -51,7 +54,7 @@ const addContact = () => {
           <user-icon class="w-5 h-5 text-gray-700 dark:text-gray-400" />
         </div>
         <input
-          v-model="username"
+          v-model="user_contacts.username"
           autocomplete="off"
           type="text"
           id="input-group-1"
@@ -67,7 +70,7 @@ const addContact = () => {
           <phone-icon class="w-5 h-5 text-gray-700 dark:text-gray-400" />
         </div>
         <input
-          v-model="phone_number"
+          v-model="user_contacts.phone_number"
           autocomplete="off"
           type="tel"
           id="phone"

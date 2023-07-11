@@ -1,21 +1,16 @@
 import { defineStore } from 'pinia'
-// import { useRouter } from 'vue-router'
-// const router = useRouter()
 
 export const useCounterStore = defineStore('counter', {
   state: () => {
     return {
-      emails: JSON.parse(localStorage.getItem('emails')) || []
+      contacts: JSON.parse(localStorage.getItem('contacts')) || []
     }
   },
   actions: {
-    closeModal() {
-      // router.push('/')
-    },
     deleteContact(index) {
-      this.emails.filter(i => i !== index)
-      localStorage.removeItem(this.emails[index])
-      console.log('delete')
+      this.contacts.splice(index, 1)
+      localStorage.setItem('contacts', JSON.stringify(this.contacts))
+      console.log(index)
     }
   },
 })
