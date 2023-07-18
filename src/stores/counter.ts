@@ -4,16 +4,16 @@ import router from '@/router/index'
 export const useCounterStore = defineStore('counter', {
   state: () => {
     return {
-      contacts: JSON.parse(localStorage.getItem('contacts')) || [],
+      contacts: JSON.parse(localStorage.getItem('contacts') || '[]'),
       index: null
     }
   },
   actions: {
-    deleteContact(index) {
+    deleteContact(index: number) {
       this.contacts.splice(index, 1)
       localStorage.setItem('contacts', JSON.stringify(this.contacts))
     },
-    editContact(index) {
+    editContact(index: any) {
       this.index = index
       router.push({ name: 'editContact' })
       console.log(index)
