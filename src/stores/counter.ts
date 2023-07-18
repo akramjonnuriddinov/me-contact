@@ -15,7 +15,7 @@ export const useCounterStore = defineStore('counter', {
     },
     editContact(index) {
       this.index = index
-      router.push({name: 'editContact'})
+      router.push({ name: 'editContact' })
       console.log(index)
     },
     updateContact() {
